@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "product": "pipmcp",
+  "credential": "PIPMCP_API_KEY",
+  "skills": [
+    {
+      "name": "pipmcp-better-stack",
+      "description": "Connect AI agents to Better Stack using one PipMCP API key and actual hosted tool discovery."
+    }
+  ],
+  "files": {
+    "skills/pipmcp-better-stack/SKILL.md": "131e2299b54a9c665b1af849cbb2875c9b900293ea33adad674e5121888bf6ee"
+  }
+}
