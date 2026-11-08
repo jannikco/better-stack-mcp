@@ -1,0 +1,229 @@
+{
+  "id": "better-stack",
+  "appSlug": "better-stack",
+  "name": "Better Stack",
+  "version": "0.2.0",
+  "baseUrl": "https://incidents.betterstack.com/api/v2",
+  "auth": {
+    "type": "bearer",
+    "env": "BETTER_STACK_API_TOKEN"
+  },
+  "tools": [
+    {
+      "name": "list_monitors",
+      "description": "List monitors.",
+      "method": "GET",
+      "path": "/monitors",
+      "readOnly": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "bindings": {
+        "path": [],
+        "query": {},
+        "body": {}
+      },
+      "sampleArguments": {},
+      "provenance": [
+        "https://betterstack.com/docs/uptime/api/list-all-existing-monitors/",
+        "https://betterstack.com/docs/uptime/api/get-a-single-monitor/",
+        "https://betterstack.com/docs/uptime/api/create-a-new-monitor/"
+      ],
+      "approvalRequired": false,
+      "evidence": {
+        "providerLiveValidation": "not-run",
+        "localValidation": "provider-request-fixture"
+      }
+    },
+    {
+      "name": "get_monitor",
+      "description": "Get monitor.",
+      "method": "GET",
+      "path": "/monitors/{monitor_id}",
+      "readOnly": true,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "monitor_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048,
+            "description": "Value"
+          }
+        },
+        "required": [
+          "monitor_id"
+        ],
+        "additionalProperties": false
+      },
+      "bindings": {
+        "path": [
+          "monitor_id"
+        ],
+        "query": {},
+        "body": {}
+      },
+      "sampleArguments": {
+        "monitor_id": "12345"
+      },
+      "provenance": [
+        "https://betterstack.com/docs/uptime/api/list-all-existing-monitors/",
+        "https://betterstack.com/docs/uptime/api/get-a-single-monitor/",
+        "https://betterstack.com/docs/uptime/api/create-a-new-monitor/"
+      ],
+      "approvalRequired": false,
+      "evidence": {
+        "providerLiveValidation": "not-run",
+        "localValidation": "provider-request-fixture"
+      }
+    },
+    {
+      "name": "create_status_monitor",
+      "description": "Create status monitor.",
+      "method": "POST",
+      "path": "/monitors",
+      "readOnly": false,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "pronounceable_name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048,
+            "description": "Value"
+          },
+          "team_name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048,
+            "description": "Value"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "additionalProperties": false
+      },
+      "bindings": {
+        "path": [],
+        "query": {},
+        "body": {
+          "url": "url",
+          "pronounceable_name": "pronounceable_name",
+          "team_name": "team_name"
+        }
+      },
+      "sampleArguments": {
+        "url": "https://example.com",
+        "pronounceable_name": "Reviewed website"
+      },
+      "body": {
+        "monitor_type": "status"
+      },
+      "provenance": [
+        "https://betterstack.com/docs/uptime/api/list-all-existing-monitors/",
+        "https://betterstack.com/docs/uptime/api/get-a-single-monitor/",
+        "https://betterstack.com/docs/uptime/api/create-a-new-monitor/"
+      ],
+      "approvalRequired": true,
+      "evidence": {
+        "providerLiveValidation": "not-run",
+        "localValidation": "provider-request-fixture"
+      }
+    }
+  ],
+  "workflow": {
+    "name": "Review uptime coverage and create an approved status monitor",
+    "description": "Review uptime coverage and create an approved status monitor. Read provider data first, then explicitly approve the selected change with operator write opt-in and a unique per-call approval key.",
+    "steps": [
+      "list_monitors",
+      "get_monitor",
+      "create_status_monitor"
+    ]
+  },
+  "provenance": [
+    "https://betterstack.com/docs/uptime/api/list-all-existing-monitors/",
+    "https://betterstack.com/docs/uptime/api/get-a-single-monitor/",
+    "https://betterstack.com/docs/uptime/api/create-a-new-monitor/"
+  ],
+  "verification": "mock-only",
+  "providerLiveValidation": "not-run",
+  "capabilityEvidence": {
+    "local": {
+      "level": "Tested",
+      "operations": [
+        {
+          "name": "list_monitors",
+          "level": "Tested",
+          "evidenceRefs": [
+            "Provider request/stdio contract tests"
+          ],
+          "method": "contract-fixture"
+        },
+        {
+          "name": "get_monitor",
+          "level": "Tested",
+          "evidenceRefs": [
+            "Provider request/stdio contract tests"
+          ],
+          "method": "contract-fixture"
+        },
+        {
+          "name": "create_status_monitor",
+          "level": "Tested",
+          "evidenceRefs": [
+            "Provider request/stdio contract tests"
+          ],
+          "method": "contract-fixture"
+        }
+      ],
+      "evidenceRefs": [
+        "Provider request/stdio contract tests"
+      ],
+      "mode": "local"
+    },
+    "managed": {
+      "level": "Documented",
+      "operations": [
+        {
+          "name": "list_monitors",
+          "level": "Documented",
+          "evidenceRefs": [],
+          "method": "documentation"
+        },
+        {
+          "name": "get_monitor",
+          "level": "Documented",
+          "evidenceRefs": [],
+          "method": "documentation"
+        },
+        {
+          "name": "create_status_monitor",
+          "level": "Documented",
+          "evidenceRefs": [],
+          "method": "documentation"
+        }
+      ],
+      "evidenceRefs": [],
+      "mode": "managed"
+    }
+  },
+  "limitations": [
+    "Global API tokens may require team_name. Monitor creation may enable provider notifications according to account policy."
+  ],
+  "repoId": "better-stack-mcp",
+  "product": "pipmcp",
+  "artifactType": "connector",
+  "sourceRevision": "3c4cf8739bc18b47a428c90518a5ebb8398323fca1d606ed19ff285a28ab069e",
+  "managedAvailability": {
+    "status": "listed",
+    "checkedAt": "2026-11-08T13:20:45.156456+00:00"
+  }
+}
